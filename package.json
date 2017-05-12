@@ -1,0 +1,26 @@
+{
+  "name" : "website-using-express",
+  "version" : "0.0.1",
+   "main": "app.js",
+  "scripts" : {
+    "start" : "node app.js"
+  },
+  "dependencies" : {
+    "express" : "latest",
+    "bcryptjs": "*",
+    "express": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
