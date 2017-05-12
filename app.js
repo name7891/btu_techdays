@@ -34,6 +34,10 @@ app.get('/login', function(req,res){
 });
 app.use('/', require('./routes/dash')  );
 
+app.get('/provider', function(req,res){ 
+	res.sendFile('public/provider.html', {root: __dirname }) 
+});
+
 app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port')); 
 
