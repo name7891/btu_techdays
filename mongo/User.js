@@ -6,7 +6,7 @@ var userschema = mongoose.Schema({
     password:       { type: String,  required: true               },
 });
 
-var user = module.exports = mongoose.model('user', userschema);
+var User = module.exports = mongoose.model('user', userschema);
 
 module.exports = {
 
@@ -29,7 +29,7 @@ module.exports = {
                 return callback("password length is more than sixteen characters",null); 
             }
 
-            var newUser = new user({                                     
+            var newUser = new User({                                     
                 username: username,                                         
                 password: hash                                             
             });
@@ -47,21 +47,21 @@ module.exports = {
 
     getUserByUsername:
     function(username,callback){                                 
-        user.findOne({username: username})
-            .select('-password')
-            .exec(function(err,user){
-                if(err){ 
-                    return callback("error fetching use by username",null)
-                }
-                else{ 
-                    return callback(null,user)
-                }
-            })                                           
+        User.findOne({username: username})
+                  .select('-password')
+                  .exec(function(err,user){
+            if(err){ 
+                return callback("error fetching use by username",null)
+            }
+            else{ 
+                return callback(null,user)
+            }
+        })                                           
     },
     
     comparePassword:    
     function(username,candidatePassword,callback){               
-        user.findOne({username: username})                              
+        User.findOne({username: username})                              
            .select('password')                                         
            .exec(function(err,user){                                   
                 if(err || !user) { return callback("No user found",false,null); }                
@@ -84,7 +84,7 @@ module.exports = {
 
     getUserById:        
     function(iduser,callback){                                   
-        user.findById(iduser)                                          
+        User.findById(iduser)                                          
             .select('-password')                                       
             .exec(function(err,user){                                  
                 if(err){ 

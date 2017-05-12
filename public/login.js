@@ -32,7 +32,7 @@ $("#login-user").click(function(e) {
             else                  { console.log(request.responseText)}
         }
     }
-}
+});
 
 $("#register-user").click(function(e) {
     e.preventDefault();

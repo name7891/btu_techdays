@@ -5,7 +5,7 @@ var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');  
 var session       = require('express-session');                    
 var mongoose      = require('./mongo/mongoose.js').mongoose();
-var user          = require('./mongo/user.js');
+var User          = require('./mongo/User.js');
 
 // Init App
 var app = express();
@@ -31,9 +31,6 @@ app.use(function (req, res, next) {
 
 app.get('/login', function(req,res){ 
 	res.sendFile('public/login.html', {root: __dirname }) 
-});
-app.get('/dash',  function(req,res){ 
-	res.sendFile('public/dash.html',  {root: __dirname }) 
 });
 app.use('/', require('./routes/dash')  );
 
