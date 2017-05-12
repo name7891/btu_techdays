@@ -4,15 +4,14 @@ var passport      = require('passport');
 var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');  
 var session       = require('express-session');                    
-var exphbs        = require('express-handlebars');
+var mongoose      = require('./mongo/mongoose.js').mongoose();
+var user          = require('./mongo/user.js');
+
+var MongoClient   = require('mongodb').MongoClient;
+var assert        = require('assert');
 
 // Init App
 var app = express();
-
-// Setting up middleware
-app.engine('handlebars',  exphbs.create({}).engine )
-app.set('view engine', 'handlebars');
-app.set('views', path.resolve(__dirname, './views'));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -33,7 +32,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('*', function(req, res){ res.render('index'); }); // Single page app, get returns index ALWAYS!
+app.get('/', function(req, res){ res.send("login.html"); });
+app.use('/', require('./routes/dash')  ); 
 
 app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port')); 
