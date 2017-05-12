@@ -1,19 +1,18 @@
 {
-  "name" : "website-using-express",
-  "version" : "0.0.1",
-   "main": "app.js",
-  "scripts" : {
-    "start" : "node app.js"
+  "name": "website-using-express",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
   },
-  "dependencies" : {
-    "express" : "latest",
+  "dependencies": {
     "bcryptjs": "*",
-    "express": "*",
     "body-parser": "*",
     "cookie-parser": "*",
+    "express": "*",
     "express-handlebars": "*",
     "express-session": "*",
-    "mongodb": "*",
+    "mongodb": "^2.2.26",
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
