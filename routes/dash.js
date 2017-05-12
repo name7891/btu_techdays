@@ -9,16 +9,16 @@ var LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser(function(user, done) { done(null, user.id); });                                             
 passport.deserializeUser(function(id, done) { 
-	User.getUserById(id, function(err, user) { 
+	user.getUserById(id, function(err, user) { 
 		done(err, user);
 	}); 
 });  
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-        User.comparePassword(username, password, function(err, isMatch, user){   // Compares Passwords
+        user.comparePassword(username, password, function(err, isMatch, user_){   // Compares Passwords
             if(err)     { console.log(err);         }                               // Console  Logs error
-            if(isMatch) { return done(null, user);  }                               // Sucess!  Returns user
+            if(isMatch) { return done(null, user_);  }                               // Sucess!  Returns user
             else        { return done(null, false); }                               // Failute! Return false
         });
     }
@@ -61,13 +61,13 @@ router.post('/register', function(req, res, next){
     var username  = req.body.username;
     var password  = req.body.password;
 
-    User.getUserByUsername(username, function(err,user) {
+    user.getUserByUsername(username, function(err,user_) {
         if (err) return res.status(500).send("Error accessing the database: " + err + "!");
 
-        User.createUser(username,password,function(err, user){            
+        user.createUser(username,password,function(err, user_){            
             if (err) return res.status(500).send("Error creating user: " + err + "!");
  
-            passport.authenticate('local', function(err, user, info) {
+            passport.authenticate('local', function(err, user_, info) {
                 if (err) return res.status(418).send("Failed to login after account creation!");
 
                 req.logIn(user, function(err) {
