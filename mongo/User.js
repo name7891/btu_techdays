@@ -11,10 +11,10 @@ var User = module.exports = mongoose.model('user', userschema);
 module.exports = {
 
     createUser:         
-    function(username,password,callback){                                               
+    function(username,password,callback){                        
         bcrypt.hash(password, 10, function(err, hash) {               
             if(err){ 
-                return callback("error hashing the password",null) 
+                return callback("errokr hashing the password",null) 
             }  
             if (username.length < 3){
                 return callback("username length is less than three characters",null); 

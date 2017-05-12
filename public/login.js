@@ -11,7 +11,7 @@ $(".switch").click(function(e) {
 });
 
 // User management functions
-$("#login-user").click(function(e) {
+$("#login-user").click(function(e){
     e.preventDefault();
     var username = document.getElementById('login-username').value;
     var password = document.getElementById('login-password').value;   
