@@ -7,9 +7,6 @@ var session       = require('express-session');
 var mongoose      = require('./mongo/mongoose.js').mongoose();
 var user          = require('./mongo/user.js');
 
-var MongoClient   = require('mongodb').MongoClient;
-var assert        = require('assert');
-
 // Init App
 var app = express();
 
@@ -32,8 +29,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', function(req, res){ res.send("login.html"); });
-app.use('/', require('./routes/dash')  ); 
+app.get('/login', function(req,res){ 
+	res.sendFile('public/login.html', {root: __dirname }) 
+});
+app.get('/dash',  function(req,res){ 
+	res.sendFile('public/dash.html',  {root: __dirname }) 
+});
+app.use('/', require('./routes/dash')  );
 
 app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port')); 
