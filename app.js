@@ -32,6 +32,15 @@ app.use(function (req, res, next) {
 app.get('/login', function(req,res){ 
 	res.sendFile('public/login.html', {root: __dirname }) 
 });
+
+app.get('/dash',  function(req,res){ 
+	res.sendFile('public/dash.html',  {root: __dirname }) 
+});
+
+app.get('/dash2',  function(req,res){ 
+	res.sendFile('public/providersdash.html',  {root: __dirname }) 
+});
+
 app.use('/', require('./routes/dash')  );
 
 app.set('port', (process.env.PORT || 5000));
