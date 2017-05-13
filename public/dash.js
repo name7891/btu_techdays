@@ -23,7 +23,6 @@ $('body').on('click','.card > button', function(e){
    		}
    	}
 
-   	console.log(enableDays)
     function enableAllTheseDays(date) {
         var sdate = $.datepicker.formatDate( 'd-m-yy', date)
         if($.inArray(sdate, enableDays) != -1) {
@@ -36,7 +35,18 @@ $('body').on('click','.card > button', function(e){
 	$("#book-modal").modal('show');
 });
 
-
+$('#logout').click(function(e){
+	var request = new XMLHttpRequest;
+	request.open('POST','/logout',true);
+    request.setRequestHeader('Content-type', 'application/json');
+    request.send();
+    request.onreadystatechange = function(){
+        if(this.readyState == 4){
+            if(this.status == 200){ location.reload() }
+            else                  { location.reload()}
+        }
+    }
+});
 
 
 addOffer = function(offer){
