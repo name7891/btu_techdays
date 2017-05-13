@@ -75,5 +75,13 @@ router.post('/logout',  function(req, res, next){
     res.redirect('/');
 });
 
+router.post('/getOrganizerDash',  function(req, res, next){
+    res.send(JSON.stringify({
+        description: "hello",
+        cost: 300,
+        category: "Photography"
+    }));
+});
+
 module.exports = router;
 
