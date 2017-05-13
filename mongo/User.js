@@ -4,6 +4,7 @@ var bcrypt    = require('bcryptjs'); // Used to hash passwords
 var userschema = mongoose.Schema({                                
     username:       { type: String,  required: true, unique: true },
     password:       { type: String,  required: true               },
+	type	:		{ type: Boolean, required: true				  },
 });
 
 var User = module.exports = mongoose.model('user', userschema);
@@ -11,7 +12,7 @@ var User = module.exports = mongoose.model('user', userschema);
 module.exports = {
 
     createUser:         
-    function(username,password,callback){                        
+    function(username,password,type,callback){                        
         bcrypt.hash(password, 10, function(err, hash) {               
             if(err){ 
                 return callback("errokr hashing the password",null) 
@@ -31,7 +32,8 @@ module.exports = {
 
             var newUser = new User({                                     
                 username: username,                                         
-                password: hash                                             
+                password: hash,
+				type:	  type,
             });
 
             newUser.save(function(err,user,numAffected){              

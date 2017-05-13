@@ -35,6 +35,7 @@ $("#register-user").click(function(e) {
     e.preventDefault();
     var username = document.getElementById('register-username').value;
     var password = document.getElementById('register-password').value;   
+	var type = document.getElementById('optionsRadios1').checked; // true -> Organizer
 
     var request = new XMLHttpRequest;
 
@@ -46,12 +47,6 @@ $("#register-user").click(function(e) {
         password: document.getElementById('login-password').value,
         type: $('#register-type input:radio:checked').val()
     }));
-
-    console.log(JSON.stringify({
-        username: document.getElementById('login-username').value,
-        password: document.getElementById('login-password').value,
-        type: $('#register-type input:radio:checked').val()
-    }))
 
     request.onreadystatechange = function(){
         if(this.readyState == 4){

@@ -30,7 +30,7 @@ router.post('/login',    function(req, res, next){
     var username  = req.body.username;  
     var password  = req.body.password;
 
-    if (username.length < 3 || password.length <3 || username.length > 16 || password.length > 16)
+    if (username.length < 3 || password.length < 3 || username.length > 16 || password.length > 16)
     {
         return res.status(500).send("Failed login: Invalid username/password!");
     }
@@ -40,7 +40,8 @@ router.post('/login',    function(req, res, next){
         if (!user) { return res.status(500).send("Failed login: no such user!"); }     // Returns failure message if failed login
         req.logIn(user, function(err) {                                                // Attempts to log in User
             if (err){ return res.status(500).send("Failed login: server error!"); }       // If error sends error messsage
-            else    { return res.send("Login Sucessfull!");         }                     // Send sucess message  
+            else    { 
+				return res.send("Login Sucessfull!");         }                     // Send sucess message  
         });
     })(req, res, next);
 });
@@ -49,13 +50,15 @@ router.post('/register', function(req, res, next){
     
     var username  = req.body.username;
     var password  = req.body.password;
+	// WHY???
+	var type	  = req.body.type;
 
     User.getUserByUsername(username, function(err,user) {
         if (err) return res.status(500).send("Error accessing the database: " + err + "!");
 
-        User.createUser(username,password,function(err, user){            
+        User.createUser(username,password,type,function(err, user){            
             if (err) return res.status(500).send("Error creating user: " + err + "!");
- 
+
             passport.authenticate('local', function(err, user, info) {
                 if (err) return res.status(418).send("Failed to login after account creation!");
 
@@ -75,3 +78,4 @@ router.post('/logout',  function(req, res, next){
 });
 
 module.exports = router;
+
