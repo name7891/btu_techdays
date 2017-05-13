@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <script src="/jquery.js"     defer="defer"></script>
-    <script src="/bootstrap.js"  defer="defer"></script>
+    <script src="/jquery.js"         defer="defer"></script>
+    <script src="/jquery-ui.min.js"  defer="defer"></script>
+    <script src="/bootstrap.js"      defer="defer"></script>
     {{#if user}}
       <script src="/dash.js"     defer="defer"></script>
     {{else}}
@@ -13,6 +13,7 @@
     {{/if}}
   
     <link rel="stylesheet" href="/bootstrap.css" />
+    <link rel="stylesheet" href="/jquery-ui.min.css" />
     <link rel="stylesheet" href="/css.css" />
     <title>Party Poper</title>
   </head>
@@ -44,16 +45,23 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="modalLabel">Flip-flop</h4>
+              <h4 class="modal-title" id="modalLabel">Booking <span id="form-name"></span></h4>
               </div>
               <div class="modal-body">
               <div class="container">
               <div class="row">
-                <p>Date: <input type="text" id="datepicker"></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">date</span>
+                  <input type="text"  id="datepicker" aria-describedby="basic-addon2">
+                  <span class="input-group-btn">
+                    <button id="conclude-book" class="btn btn-primary" type="button" data-dismiss="modal">Book!</button>>
+                  </span>
+                </div>
               </div>
           </div>
               </div>
               <div class="modal-footer">
+             
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>

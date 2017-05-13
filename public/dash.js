@@ -2,11 +2,11 @@ $('#bookmodal').on('shown.bs.modal', function () {
 	$('#myInput').focus()
 })
 
-$( function() {
+$( function(){
 	for( var i = 0; i < offers.length; i++ ){
 		addOffer(offers[i]);
 	}
-} );
+});
 
 $('body').on('click','.card > button', function(e){
 	e.preventDefault();
@@ -19,6 +19,8 @@ $('body').on('click','.card > button', function(e){
    					                + (date.getMonth() + 1)+ '-'
    					                + date.getFullYear() );
    			}
+   			$('#form-name').html( offers[i].name );
+   			$('#conclude-book').val( offers[i].id );
    			break;
    		}
    	}
@@ -30,8 +32,11 @@ $('body').on('click','.card > button', function(e){
         }
         return [false];
     }
-
-    $('#datepicker').datepicker({dateFormat: 'dd-mm-yy', beforeShowDay: enableAllTheseDays});
+    $('#datepicker').datepicker( "destroy" );
+    $('#datepicker').datepicker({
+    	dateFormat: 'dd-mm-yy', 
+    	beforeShowDay: enableAllTheseDays
+    });
 	$("#book-modal").modal('show');
 });
 
@@ -48,6 +53,23 @@ $('#logout').click(function(e){
     }
 });
 
+$("#conclude-book").click(function(e){
+
+	var request = new XMLHttpRequest;
+	request.open('POST','/book',true);
+    request.setRequestHeader('Content-type', 'application/json');
+    request.send({
+    	id: $('#conclude-book').val(),
+    	date: $('#datepicker').val()
+    });
+
+    request.onreadystatechange = function(){
+        if(this.readyState == 4){
+            if(this.status == 200){ location.reload(); }
+            else                  { location.reload(); }
+        }
+    }
+})
 
 addOffer = function(offer){
 	$('#dash-table-container-row').append(
@@ -78,8 +100,7 @@ offers = [
 	 "description":"eskerik asko",
 	 "availability": [ 		
 	    1494624009053,
-		1494537609053,
-		1494364809053
+		1494537609053
 	]},
 	{"id":"124",
 	 "name":"telepizza",
