@@ -7,7 +7,11 @@
     <script src="/jquery-ui.min.js"  defer="defer"></script>
     <script src="/bootstrap.js"      defer="defer"></script>
     {{#if user}}
-      <script src="/dash.js"     defer="defer"></script>
+      {{#if user.type }}
+        <script src="/dashorganizer.js"     defer="defer"></script>
+      {{else}}
+        <script src="/dashprovider.js"     defer="defer"></script>
+      {{/if}}
     {{else}}
       <script src="/login.js"    defer="defer"></script>
     {{/if}}
@@ -35,8 +39,6 @@
       </nav>
 
       {{#if user.type }}
-
-
 
       <div id="dash-table-container">
         <div class="row" id="dash-table-container-row"></div>
@@ -72,7 +74,40 @@
         </div>
       </div>
       {{else}}
-      hello world
+
+        <form id="providerdash">
+          <div class="form-group">
+            <label for="selectCategory"><strong>Offer</strong></label>
+            <select class="form-control" id="selectCategory">
+              <option>Select Category</option>
+              <option value="Agency">Agency</option>
+              <option value="Artist">Artist</option>
+              <option value="Venue">Venue</option>
+              <option value="Media Service">Media Services</option>
+              <option value="Photography">Photography</option>
+              <option value="Advertisement">Advertisement</option>
+              <option value="Technology">Technology</option>
+            </select>
+          </div>
+          <div class="form-group">  
+            <div class="input-group" style="text-align: center">
+              <div id="datepicker" style= "margin: auto; margin-bottom: 20px;" ">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">€</span>
+              <input id="cost" type="number" class="form-control" >
+            </div>
+          </div>
+          <div class="form-group"> 
+            <textarea id="description" class="form-control" placeholder="Description" aria-describedby="sizing-addon1" rows="3"></textarea>
+          </div>
+
+         <button id="save" class="btn btn-lg btn-primary btn-block">Save</button>
+        
+        </form>
+
       {{/if}}
     {{else}}
       <div class="container">

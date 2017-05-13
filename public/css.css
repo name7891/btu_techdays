@@ -44,15 +44,15 @@ form {
 	-webkit-border-radius: 10px;
 }
 
-form img {
+.login-form form img {
 	display: block;
 	margin: 0 auto;
 	margin-bottom: 35px;
 	width: 100%;
 }
-form input,
-form button,
-form span {
+.login-form  form input,
+.login-form  form button,
+.login-form  form span {
 	font-size: 18px;
 	margin: 16px 0;
 }
@@ -60,13 +60,13 @@ form > div {
 	text-align: center;
 }
 	
-.form-links {
+..login-form  form-links {
 	text-align: center;
 	margin-top: 1em;
 	margin-bottom: 50px;
 }
 
-.form-links a {
+.login-form  .form-links a {
 	color: #fff;
 }
 
@@ -96,3 +96,9 @@ form > div {
     margin-top: 3px;
 }
 
+#providerdash {	
+	width: 90%;
+	margin: auto;
+	margin-top: 30px;
+	max-width: 768px;
+}
