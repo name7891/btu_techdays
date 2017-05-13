@@ -12,18 +12,15 @@ $(".switch").click(function(e) {
 
 // User management functions
 $("#login-user").click(function(e){
-    e.preventDefault();
-    var username = document.getElementById('login-username').value;
-    var password = document.getElementById('login-password').value;   
-
+    e.preventDefault(); 
     var request = new XMLHttpRequest;
 
     request.open('POST','/login',true);
     request.setRequestHeader('Content-type', 'application/json');
 
     request.send(JSON.stringify({
-        username:      username, 
-        password:      password,
+        username: document.getElementById('login-username').value,
+        password: document.getElementById('login-password').value,
     }));
 
     request.onreadystatechange = function(){
@@ -45,13 +42,17 @@ $("#register-user").click(function(e) {
     request.setRequestHeader('Content-type', 'application/json');
 
     request.send(JSON.stringify({
-        username:      username, 
-        password:      password,
+        username: document.getElementById('login-username').value,
+        password: document.getElementById('login-password').value,
+        type: $('#register-type input:radio:checked').val()
     }));
-    console.log( JSON.stringify({
-        username:      username, 
-        password:      password,
-    }) );
+
+    console.log(JSON.stringify({
+        username: document.getElementById('login-username').value,
+        password: document.getElementById('login-password').value,
+        type: $('#register-type input:radio:checked').val()
+    }))
+
     request.onreadystatechange = function(){
         if(this.readyState == 4){
             if(this.status == 200){ location.reload() }
