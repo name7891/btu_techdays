@@ -18,7 +18,7 @@
     <title>Party Poper</title>
   </head>
   <body>
-    {{#if user}} 
+    {{#if user}}
 
       <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,10 @@
           </ul>
         </div>
       </nav>
+
+      {{#if user.type }}
+
+
 
       <div id="dash-table-container">
         <div class="row" id="dash-table-container-row"></div>
@@ -67,6 +71,9 @@
           </div>
         </div>
       </div>
+      {{else}}
+      hello world
+      {{/if}}
     {{else}}
       <div class="container">
         <div class="row" id="pwd-container">

@@ -50,9 +50,7 @@ router.post('/register', function(req, res, next){
     
     var username  = req.body.username;
     var password  = req.body.password;
-	// WHY???
 	var type	  = req.body.type;
-
     User.getUserByUsername(username, function(err,user) {
         if (err) return res.status(500).send("Error accessing the database: " + err + "!");
 

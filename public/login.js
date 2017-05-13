@@ -33,19 +33,15 @@ $("#login-user").click(function(e){
 
 $("#register-user").click(function(e) {
     e.preventDefault();
-    var username = document.getElementById('register-username').value;
-    var password = document.getElementById('register-password').value;   
-	var type = document.getElementById('optionsRadios1').checked; // true -> Organizer
-
+  
     var request = new XMLHttpRequest;
-
     request.open('POST','/register',true);
     request.setRequestHeader('Content-type', 'application/json');
 
     request.send(JSON.stringify({
-        username: document.getElementById('login-username').value,
-        password: document.getElementById('login-password').value,
-        type: $('#register-type input:radio:checked').val()
+        username: document.getElementById('register-username').value,
+        password: document.getElementById('register-password').value,
+        type:     $('#register-type input:radio:checked').val()
     }));
 
     request.onreadystatechange = function(){
