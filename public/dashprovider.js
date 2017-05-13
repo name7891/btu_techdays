@@ -4,13 +4,14 @@ $(document).ready(function(){
 		inline: true,
 	});
 	var request = new XMLHttpRequest;
-	request.open('POST','/getOrganizerDash',true);
+	request.open('POST','/getProviderDash',true);
     request.setRequestHeader('Content-type', 'application/json');
     request.send();
     request.onreadystatechange = function(){
         if(this.readyState == 4){
             if(this.status == 200){   
-	            var data = JSON.parse(request.responseText);  	
+	            var data = JSON.parse(request.responseText);  
+                console.log(data)	
 	        	$('#selectCategory').val(data.category);
 	    		$('#cost').val(data.cost);
 	    		$('#description').val(data.description);
@@ -26,14 +27,14 @@ $(document).ready(function(){
 $('#save').click(function(e){
 	e.preventDefault();
 	var request = new XMLHttpRequest;
-	request.open('POST','/saveOrganizerDash',true);
+	request.open('POST','/saveProviderDash',true);
     request.setRequestHeader('Content-type', 'application/json');
-    request.send({
+    request.send( JSON.stringify({
     	category: $('#selectCategory').val(),
     	cost:     $('#cost').val(),
     	description: $('#description').val(),
     	dates:       $('#datepicker').multiDatesPicker('getDates')
-    });
+    }) );
     request.onreadystatechange = function(){
         if(this.readyState == 4){
             if(this.status == 200){ location.reload(); }

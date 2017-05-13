@@ -75,12 +75,45 @@ router.post('/logout',  function(req, res, next){
     res.redirect('/');
 });
 
-router.post('/getOrganizerDash',  function(req, res, next){
-    res.send(JSON.stringify({
-        description: "hello",
-        cost: 300,
-        category: "Photography"
-    }));
+router.post('/getOffers', function(req, res, next){
+    if( req.user.type == 1 ){
+        User.getProviders( function(err,providers){
+            console.log(providers)
+            res.send( JSON.stringify(providers) );
+        });
+    } else {
+        res.status(500).send("you are not an Organizer!");
+    }
+});
+
+
+router.post('/getProviderDash',  function(req, res, next){
+    if( req.user.type == 0 ){
+        res.send(JSON.stringify({
+            description: req.user.description,
+            cost:        req.user.cost,
+            category:    req.user.category
+        }));
+    } else {
+        res.status(500).send("you are not an provider!");
+    }
+});
+
+router.post('/saveProviderDash',  function(req, res, next){
+    if( req.user.type == 0 ){
+        var newstuff = {
+            description: req.body.description,
+            cost       : req.body.cost,
+            category   : req.body.category
+        }
+        console.log(newstuff)
+        User.udpateUserById(req.user.id,newstuff,function(err){
+            if(err){ return req.status(500).res(err); }
+            else{ return res.send("change Sucessfull!"); }
+        })
+    } else {
+        res.status(500).send("you are not an provider!");
+    }
 });
 
 module.exports = router;

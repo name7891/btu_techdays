@@ -6,7 +6,8 @@ var userschema = mongoose.Schema({
     password:       { type: String,  required: true               },
 	type	:		{ type: Boolean, required: true				  },
     description:    { type: String                                },
-    
+    cost:           { type: Number                                },
+    category:       { type: String                                }
 });
 
 var User = module.exports = mongoose.model('user', userschema);
@@ -36,6 +37,9 @@ module.exports = {
                 username: username,                                         
                 password: hash,
 				type:	  type,
+                description:   "",
+                cost:          0,
+                category:      ""
             });
 
             newUser.save(function(err,user,numAffected){              
@@ -99,5 +103,34 @@ module.exports = {
                 }                 
             });                                         
     },  
-    
+
+    udpateUserById:
+    function(iduser,updateinfo,callback){   
+        User.findByIdAndUpdate(iduser,
+            {
+                type   :     updateinfo.type,
+                description: updateinfo.description,
+                cost:        updateinfo.cost,      
+                category:    updateinfo.category  
+            },
+            function(err, numberAffected, rawResponse) {
+                if(err){ 
+                    return callback("error saving user");
+                }                   
+                else{ 
+                    return callback(null)
+                }             
+            }
+        );
+    },
+
+    getProviders:
+    function(callback){
+        User.find({'type': 0})
+            .select('-password')
+            .exec(function(err,stuff){
+                if( err ){ return callback(err,null);   }
+                else     { return callback(null,stuff); }
+            })
+    }
 }

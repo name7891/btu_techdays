@@ -3,6 +3,7 @@ $('#bookmodal').on('shown.bs.modal', function () {
 })
 
 $( function(){
+  getOffers();
 	for( var i = 0; i < offers.length; i++ ){
 		addOffer(offers[i]);
 	}
@@ -12,7 +13,7 @@ $('body').on('click','.card > button', function(e){
 	e.preventDefault();
    	var enableDays = []
    	for( var i = 0; i < offers.length; i++ ){
-   		if( this.id == offers[i].id ){
+   		if( this._id == offers[i]._id ){
    			for( var j = 0; j < offers[i].availability.length; j++ ){
    				var date = new Date(offers[i].availability[j])
    				enableDays.push( '' + date.getDate() + '-' 
@@ -20,7 +21,7 @@ $('body').on('click','.card > button', function(e){
    					                + date.getFullYear() );
    			}
    			$('#form-name').html( offers[i].name );
-   			$('#conclude-book').val( offers[i].id );
+   			$('#conclude-book').val( offers[i]._id );
    			break;
    		}
    	}
@@ -75,36 +76,59 @@ addOffer = function(offer){
 	$('#dash-table-container-row').append(
 		  '<div class="col-md-4">'
 	    + '      <div class="card">'
-	    + '        <h3>' +  offer.name + '</h3>'
-	    + '        <h4>' +  offer.type + '</h4>'
-	    + '        <p class="card-text">' +  offer.description +'</p>'
-	    + '        <button id="' + offer.id + '" type="button" class="btn btn-primary" >Book!</button>'
+	    + '        <h3>' +  offer.username + '</h3>'
+	    + '        <h4>' +  offer.category + '</h4>'
+      + '        <h4>' +  offer.cost     + '€ </h4>'
+ 	    + '        <p class="card-text">' +  offer.description +'</p>'
+	    + '        <button id="' + offer._id + '" type="button" class="btn btn-primary" >Book!</button>'
 	    + '      </div>'
 	    + '</div>'
     );
 }
 
+getOffers = function(){
+  var request = new XMLHttpRequest;
+  request.open('POST','/getOffers',true);
+    request.setRequestHeader('Content-type', 'application/json');
+    request.send();
+
+    request.onreadystatechange = function(){
+        if(this.readyState == 4){
+            if(this.status == 200){
+              var newOffers = JSON.parse( request.responseText );
+              for( var i = 0; i < newOffers.length; i++ ){
+                addOffer(newOffers[i]); 
+                offers.push(newOffers[i]);
+              } 
+            } else { location.reload(); }
+        }
+    }
+}
+
 offers = [
-	{"id":"123",
-	 "name":"die artze",
-	 "type":"musical act",
+	{"_id":"123",
+	 "username":"die artze",
+	 "category":"musical act",
+   "cost":400,
 	 "description":"The beste bande der welt",
 	 "availability": [
 		1494624009053,
 		1494537609053,
 		1494364809053
 	]},
-	{"id":"125",
-	 "name":"Berri Txarrak",
-	 "type":"musical act",
+	{"_id":"125",
+	 "username":"Berri Txarrak",
+	 "category":"musical act",
+   "cost":200,
 	 "description":"eskerik asko",
 	 "availability": [ 		
 	    1494624009053,
 		1494537609053
 	]},
-	{"id":"124",
-	 "name":"telepizza",
-	 "type":"Catering",
+	{"_id":"124",
+	 "username":"telepizza",
+	 "category":"Catering",
+   "cost":500,
 	 "description":"We make pizza!",
 	 "availability": [
 	    1494624009053,
