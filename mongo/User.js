@@ -1,20 +1,38 @@
 var mongoose  = require('mongoose'); // Mongoose
 var bcrypt    = require('bcryptjs'); // Used to hash passwords
 
+<<<<<<< HEAD
 var userschema = mongoose.Schema({
 	username:       { type: String,  required: true, unique: true },
 	password:       { type: String,  required: true               },
+=======
+var userschema = mongoose.Schema({                                
+    username:       { type: String,  required: true, unique: true },
+    password:       { type: String,  required: true               },
+	type	:		{ type: Boolean, required: true				  },
+>>>>>>> 3da9e386e660fe0114583775072dcc76719323f6
 });
 
 var User = module.exports = mongoose.model('user', userschema);
 
 module.exports = {
 
+<<<<<<< HEAD
 	createUser:
     function(username, password, callback) {
         bcrypt.hash(password, 10, function(err, hash) {
             if (err) {
                 return callback("error hashing the password", null)
+=======
+    createUser:         
+    function(username,password,type,callback){                        
+        bcrypt.hash(password, 10, function(err, hash) {               
+            if(err){ 
+                return callback("errokr hashing the password",null) 
+            }  
+            if (username.length < 3){
+                return callback("username length is less than three characters",null); 
+>>>>>>> 3da9e386e660fe0114583775072dcc76719323f6
             }
             if (username.length < 3) {
                 return callback("username length is less than three characters", null);
@@ -29,9 +47,16 @@ module.exports = {
                 return callback("password length is more than sixteen characters", null);
             }
 
+<<<<<<< HEAD
             var newUser = new User({
 				username: username,
 				password: hash
+=======
+            var newUser = new User({                                     
+                username: username,                                         
+                password: hash,
+				type:	  type,
+>>>>>>> 3da9e386e660fe0114583775072dcc76719323f6
             });
 
             newUser.save(function(err, user, numAffected) {
@@ -93,4 +118,21 @@ module.exports = {
         });
     },
 
+<<<<<<< HEAD
+=======
+    getUserById:        
+    function(iduser,callback){                                   
+        User.findById(iduser)                                          
+            .select('-password')                                       
+            .exec(function(err,user){                                  
+                if(err){ 
+                    return callback("error getting user",null);
+                }                   
+                else{ 
+                    return callback(null,user)
+                }                 
+            });                                         
+    },  
+    
+>>>>>>> 3da9e386e660fe0114583775072dcc76719323f6
 }

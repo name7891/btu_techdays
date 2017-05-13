@@ -4,11 +4,17 @@ var passport      = require('passport');
 var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');  
 var session       = require('express-session');                    
+var exphbs        = require('express-handlebars');
 var mongoose      = require('./mongo/mongoose.js').mongoose();
 var User          = require('./mongo/User.js');
 
 // Init App
 var app = express();
+
+// Render Engine
+app.engine('handlebars',  exphbs.create({}).engine )
+app.set('view engine', 'handlebars');
+app.set('views', path.resolve(__dirname, './views'));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -29,9 +35,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/login', function(req,res){ 
-	res.sendFile('public/login.html', {root: __dirname }) 
-});
+app.get('*', function(req, res){ res.render('index'); });
 app.use('/', require('./routes/dash')  );
 
 app.get('/provider', function(req,res){ 

@@ -55,7 +55,8 @@ form img {
 	width: 100%;
 }
 form input,
-form button {
+form button,
+form span {
 	font-size: 18px;
 	margin: 16px 0;
 }
@@ -84,4 +85,22 @@ form > div {
 	margin-top: 30px;
 }
 
+<<<<<<< HEAD
 #dash-table-container
+=======
+#dash-table-container {
+	width: 80%;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.card {
+    float: left;
+    width: 100%;
+    padding: .75rem;
+    margin-bottom: 2rem;
+    margin: 3px;
+    margin-top: 3px;
+}
+
+>>>>>>> 3da9e386e660fe0114583775072dcc76719323f6
