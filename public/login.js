@@ -38,6 +38,7 @@ $("#register-user").click(function(e) {
     e.preventDefault();
     var username = document.getElementById('register-username').value;
     var password = document.getElementById('register-password').value;   
+	var type = document.getElementById('optionsRadios1').checked; // true -> Organizer
 
     var request = new XMLHttpRequest;
 
@@ -47,11 +48,15 @@ $("#register-user").click(function(e) {
     request.send(JSON.stringify({
         username:      username, 
         password:      password,
+		type:		   type,
     }));
-    console.log( JSON.stringify({
+
+    console.log(JSON.stringify({
         username:      username, 
         password:      password,
-    }) );
+		type:		   type,
+    }));
+
     request.onreadystatechange = function(){
         if(this.readyState == 4){
             if(this.status == 200){ location.reload() }
